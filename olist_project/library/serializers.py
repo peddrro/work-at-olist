@@ -8,7 +8,7 @@ class AuthorSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 class BookSerializer(serializers.ModelSerializer):
-    authors = AuthorSerializer(read_only=True, many=True)
+    
     class Meta:
         model = models.Book
         fields = '__all__'
