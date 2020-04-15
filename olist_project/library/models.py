@@ -3,12 +3,18 @@ from django.utils import timezone
 from django.core.exceptions import ValidationError
 
 class Author(models.Model):
-    name = models.CharField(max_length=100)
+    '''
+        Class that holds authors data
+    '''
+    name = models.CharField(max_length=100, unique=True)
 
     def __str__(self):
         return self.name
     
 class Book(models.Model):
+    '''
+        Class that holds books data
+    '''
     name = models.CharField(max_length=100)
     edition = models.PositiveSmallIntegerField()
     publication_year = models.PositiveSmallIntegerField()
