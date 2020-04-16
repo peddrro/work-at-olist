@@ -1,3 +1,60 @@
+# Olist-library-app
+
+## About the project
+
+It's an API that was created using Python and Django Rest Framework, that manages library-specific projectrs through books and their authors. Authors are inserted from CSV file.
+
+This project was built using Linux Mint-19.3-xfce-64bit, VSCode text editor, Python3.7, Pip3.7
+
+## Packages and Versions
+
+* Python>=3.6
+* Pip>=3.6
+* Django==3.0.5
+* djangorestframework==3.11.0
+* pylint==2.4.4
+* python-decouple==3.3
+* drf-yasg==1.17.1
+* django-filter==2.2.0
+
+## Setup
+
+1. After cloning the repository setup a virtualenv, for more informations see: [venv](https://docs.python.org/3/library/venv.html).
+2. Run ```$ pip3 install -r requirements.txt ``` to install all requirements needed
+3. Create a ``` .env ``` on olist_project folder with the following structure
+
+```
+
+SECRET_KEY=YOUR_SECRET_KEY
+DEBUG=True
+ALLOWED_HOSTS=.localhost, 127.0.0.1
+
+```
+
+4. Run ``` python3 manage.py migrate ``` to apply all migrations to database
+
+5. Run ``` python3 manage.py runserver ``` to run the server
+
+6. Run ``` python3 manage.py create_authors path/your_csv_file.csv ``` to add authors to database
+
+7. To populate authors table you need an csv file that contains their names, just like the following structure
+```
+name
+Harrison Pedro
+Maria de Fátima
+João
+```
+
+## Tests
+
+To execute the project tests, run ``` python3 manage.py test ```
+
+## Deploy
+
+The project is hosted on Heroku at [olist-library-app](http://olist-library-app.herokuapp.com/)
+
+You can see a more detailed API at [olist-library-app/swagger](http://olist-library-app.herokuapp.com/swagger)
+
 # Work at Olist
 
 [Olist](https://olist.com/) is a company that offers an integration platform for sellers and marketplaces allowing them to sell their products across multiple channels.
