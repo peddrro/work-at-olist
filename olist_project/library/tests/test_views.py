@@ -26,6 +26,30 @@ class AuthorViewSetTest(TestCase):
     def test_authors_viewset_object_not_found(self):
         response = self.client.get('/authors/999/')
         self.assertEquals(response.status_code, 404)
+    
+    def test_author_viewset_prohibited_post(self):
+        new_author = {
+            'name': 'Teste'
+        }
+        response = self.client.post('/authors/', new_author)
+        self.assertNotEquals(response.status_code, 200)
+    
+    def test_author_viewset_prohibited_put(self):
+        author = models.Author.objects.first()
+        new_name = {'name': 'Teste name'}
+        response = self.client.put(f'/authors/{author.pk}', new_name, content_type='application/json')
+        self.assertNotEquals(response.status_code, 200)
+    
+    def test_author_viewset_prohibited_patch(self):
+        author = models.Author.objects.first()
+        new_name = {'name': 'Teste name'}
+        response = self.client.patch(f'/authors/{author.pk}', new_name, content_type='application/json')
+        self.assertNotEquals(response.status_code, 200)
+
+    def test_author_viewset_prohibited_delete(self):
+        author = models.Author.objects.first()
+        response = self.client.delete(f'/authors/{author.pk}')
+        self.assertNotEquals(response.status_code, 204)
 
 class BookViewSetTest(TestCase):
     '''
