@@ -50,6 +50,15 @@ class AuthorViewSetTest(TestCase):
         author = models.Author.objects.first()
         response = self.client.delete(f'/authors/{author.pk}')
         self.assertNotEquals(response.status_code, 204)
+    
+    def test_author_filtering(self):
+        author = models.Author.objects.last()
+        response = self.client.get(f"/authors/?name={author.name}")
+        self.assertEquals(response.data.get('results')[0].get('id'), author.pk)
+    
+    def test_author_invalid_filtering(self):
+        response = self.client.get(f"/authors/?name=asdfsablablablabla")
+        self.assertEquals(response.data.get('count'), 0)
 
 class BookViewSetTest(TestCase):
     '''
@@ -100,6 +109,7 @@ class BookViewSetTest(TestCase):
         new_name = {'name': 'Nome teste'}
         self.assertNotEquals(old_name, new_name.get('name'))
         response = self.client.patch(f"/books/{book.pk}/", new_name, content_type='application/json')
+        self.assertEquals(response.status_code, 200)
         book = models.Book.objects.first()
         self.assertEquals(book.name, new_name.get('name'))
     
@@ -139,3 +149,22 @@ class BookViewSetTest(TestCase):
         self.assertFalse(exists)
         response = self.client.delete(f"/books/999/")
         self.assertEquals(response.status_code, 404)
+    
+    def test_book_filtering(self):
+        book = models.Book.objects.last()
+        response = self.client.get(f"/books/?name={book.name}")
+        self.assertEquals(response.data.get('results')[0].get('id'), book.pk)
+    
+    def test_book_invalid_filtering(self):
+        response = self.client.get(f"/books/?name=blablablablaasdfdf")
+        self.assertEquals(response.data.get('count'), 0)
+
+    def test_book_filtering_multiple_authors_ids(self):
+        book = models.Book.objects.first()
+        num_authors = book.authors.count()
+        response = self.client.get(
+            f"/books/?authors={book.authors.first().pk}&authors={book.authors.last().pk}")
+        self.assertEquals(response.data.get('results')[0].get('id'), book.authors.first().pk)
+        self.assertEquals(response.data.get('results')[1].get('id'), book.authors.last().pk)
+
+    

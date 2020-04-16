@@ -15,7 +15,7 @@ class AuthorTestCase(TestCase):
         self.assertNotEqual(self.author.__str__(), '')
     
     def test_author_good_representation(self):
-        self.assertNotEqual(self.author.__str__(), self.author)
+        self.assertEqual(self.author.__str__(), self.author.name)
     
 
 class BookTestCase(TestCase):
@@ -32,7 +32,7 @@ class BookTestCase(TestCase):
         self.assertNotEqual(self.right_book.__str__(), '')
     
     def test_book_good_representation(self):
-        self.assertNotEqual(self.right_book.__str__(), self.right_book)
+        self.assertEqual(self.right_book.__str__(), self.right_book.name)
     
     def test_book_ok_year_validation(self):
         self.assertRaises(ValidationError, self.wrong_book.clean)
