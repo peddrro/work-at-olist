@@ -3,3 +3,7 @@ django-filter==2.2.0
 djangorestframework==3.11.0
 drf-yasg==1.17.1
 pylint==2.4.4
+python-decouple==3.3
+django-heroku
+gunicorn
+dj_database_url
