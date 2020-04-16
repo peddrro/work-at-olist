@@ -1,0 +1,33 @@
+[
+    {
+      "model": "library.author",
+      "fields": {
+        "name": "Harrison"
+      }
+    },
+    {
+      "model": "library.author",
+      "fields": {
+        "name": "Bianca"
+      }
+    },
+    {
+      "model": "library.book",
+      "fields": {
+        "name": "A Cabana",
+        "edition": 1,
+        "publication_year": 2010,
+        "authors": [1, 2]
+      }
+    },
+    {
+      "model": "library.book",
+      "fields": {
+        "name": "Harry Potter",
+        "edition": 1,
+        "publication_year": 2021,
+        "authors": [2]
+      }
+    }
+  ]
+  
